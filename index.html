@@ -738,6 +738,8 @@
       justify-content: center;
       margin: 0 auto;
       max-width: 600px;
+      animation: rabada-float 6s ease-in-out infinite;
+      will-change: transform;
     }
     .rabada-hero-img img {
       width: 100%;
@@ -745,6 +747,10 @@
       display: block;
       object-fit: contain;
       filter: drop-shadow(0 -8px 40px rgba(109,24,35,0.5));
+    }
+    @keyframes rabada-float {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50%       { transform: translateY(-14px) scale(1.02); }
     }
     .rabada-hero-opts {
       display: grid;
