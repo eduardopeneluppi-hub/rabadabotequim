@@ -1,0 +1,1781 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rabada Botequim &mdash; São José dos Campos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Cormorant+SC:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ===== TOKENS ===== */
+    :root {
+      --bordeaux:       #6D1823;
+      --bordeaux-light: #8E2232;
+      --bordeaux-dim:   #4D1118;
+      --bg:             #FFFFFF;
+      --surface:        #F2EDEB;
+      --surface-2:      #EBE4E2;
+      --surface-3:      #E2D9D7;
+      --ink:            #1A0E11;
+      --ink-dim:        #4A3538;
+      --muted:          #8A7070;
+      --muted-dim:      rgba(138,112,112,0.3);
+      --sep:            #D9CFCD;
+      --font-title:     'Bebas Neue', sans-serif;
+      --font-d:         'Cormorant Garamond', Georgia, serif;
+      --font-sc:        'Cormorant SC', Georgia, serif;
+      --font-b:         'Barlow', system-ui, sans-serif;
+    }
+
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-b);
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      padding: 1.25rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--sep);
+    }
+    .nav-logo {
+      font-family: var(--font-title);
+      font-size: 1.4rem;
+      letter-spacing: 0.1em;
+      font-weight: 400;
+      color: var(--bordeaux);
+      text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.25rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-b);
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 180ms ease;
+      cursor: pointer;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-burger span {
+      width: 22px; height: 1.5px;
+      background: var(--ink);
+      display: block;
+      transition: all 200ms ease;
+    }
+    .nav-burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100svh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: var(--bordeaux-dim);
+    }
+    .hero-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.12);
+      border: 1px dashed rgba(255,255,255,0.08);
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom,
+          rgba(12,6,8,0.18) 0%,
+          rgba(12,6,8,0.45) 50%,
+          rgba(12,6,8,0.9)  82%,
+          rgba(12,6,8,1)    100%
+        );
+    }
+    .hero-body {
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 2rem 5rem;
+      text-align: center;
+    }
+    .hero-tagline {
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 1.4rem;
+    }
+    .hero-title {
+      font-family: var(--font-title);
+      font-size: clamp(5rem, 13vw, 11rem);
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      line-height: 0.9;
+      color: #fff;
+      text-transform: uppercase;
+      text-wrap: balance;
+      margin-bottom: 1.75rem;
+    }
+    .hero-title em { font-style: normal; }
+    .hero-sub {
+      font-size: 1.15rem;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      color: rgba(255,255,255,0.75);
+      max-width: 40ch;
+      line-height: 1.7;
+      text-wrap: pretty;
+    }
+    .hero-scroll {
+      position: relative;
+      z-index: 2;
+      padding: 0 0 2.5rem;
+      display: flex;
+      justify-content: center;
+    }
+    .hero-scroll-inner {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .hero-scroll-inner::before,
+    .hero-scroll-inner::after {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* ===== DIVIDER ===== */
+    .sec-div {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .sec-div::before, .sec-div::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--sep);
+    }
+    .sec-div-label {
+      font-family: var(--font-sc);
+      font-size: 0.9rem;
+      letter-spacing: 0.18em;
+      color: var(--bordeaux);
+      white-space: nowrap;
+      font-weight: 600;
+    }
+
+    /* ===== LAYOUT ===== */
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 2.5rem; }
+
+    /* ===== INSTAGRAM ===== */
+    .insta-sec {
+      background: var(--surface);
+      padding: 5rem 0 0;
+      border-top: 1px solid var(--sep);
+      overflow: hidden;
+    }
+    .insta-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: flex-end;
+      gap: 4rem;
+    }
+    .insta-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+      padding-bottom: 5rem;
+    }
+    .insta-phone {
+      display: flex;
+      align-items: flex-end;
+      animation: phone-float 5s ease-in-out infinite;
+      will-change: transform;
+    }
+    .insta-phone img {
+      display: block;
+      width: 300px;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 24px 32px rgba(0,0,0,0.18)) drop-shadow(0 -4px 20px rgba(109,24,35,0.1));
+    }
+    @keyframes phone-float {
+      0%, 100% { transform: translateY(0px);   }
+      50%       { transform: translateY(-18px); }
+    }
+    .insta-eyebrow {
+      font-family: var(--font-b);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--bordeaux);
+      margin-bottom: 0.75rem;
+    }
+    .insta-title {
+      font-family: var(--font-title);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .insta-btn {
+      flex-shrink: 0;
+      position: relative;
+      display: inline-flex;
+      text-decoration: none;
+      border-radius: 6px;
+      overflow: hidden;
+      transition: transform 240ms ease;
+    }
+    .insta-btn:hover { transform: translateY(-3px); }
+    .insta-btn:hover .insta-btn-bg { opacity: 1; }
+    .insta-btn:hover .insta-arrow { transform: translateX(3px); }
+    .insta-btn-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      opacity: 0.88;
+      transition: opacity 240ms ease;
+    }
+    .insta-btn-content {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.5rem 1rem 1.2rem;
+    }
+    .insta-icon {
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+      display: block;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.2));
+    }
+    .insta-btn-texts {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+    .insta-btn-label {
+      font-family: var(--font-b);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+    }
+    .insta-btn-handle {
+      font-family: var(--font-title);
+      font-size: 1.5rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: #fff;
+      line-height: 1;
+    }
+    .insta-arrow {
+      width: 20px;
+      height: 20px;
+      color: rgba(255,255,255,0.7);
+      flex-shrink: 0;
+      transition: transform 240ms ease;
+      margin-left: 0.25rem;
+    }
+
+    @media (max-width: 720px) {
+      .insta-inner {
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding: 0 1rem;
+      }
+      .insta-left { padding-bottom: 2.5rem; gap: 1.75rem; }
+      .insta-phone img { width: 220px; }
+      .insta-icon { width: 32px; height: 32px; }
+      .insta-btn-handle { font-size: 1.2rem; }
+      .insta-btn-content { padding: 0.85rem 1.25rem 0.85rem 1rem; gap: 0.75rem; }
+      .insta-title { font-size: clamp(1.8rem, 7vw, 2.5rem); }
+    }
+
+    /* ===== HOURS ===== */
+    .hours {
+      background: var(--surface);
+      padding: 6rem 0;
+    }
+    .hours-heading {
+      font-family: var(--font-title);
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 3rem;
+      color: var(--ink);
+    }
+    .hours-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      border: 1px solid var(--sep);
+      background: #fff;
+    }
+    .hours-cell {
+      padding: 1.5rem 1rem;
+      border-right: 1px solid var(--sep);
+      text-align: center;
+    }
+    .hours-cell:last-child { border-right: none; }
+    .hours-day {
+      font-family: var(--font-sc);
+      font-size: 0.85rem;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+    .hours-time {
+      font-family: var(--font-d);
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+    .hours-time.closed {
+      font-family: var(--font-b);
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--bordeaux);
+      letter-spacing: 0.04em;
+    }
+
+    /* ===== MENU INTRO ===== */
+    .menu-intro {
+      padding: 7rem 0 3rem;
+      background: var(--bg);
+    }
+    .menu-intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr 1fr;
+      gap: 0 3.5rem;
+      align-items: center;
+    }
+    .menu-intro-image {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      display: block;
+    }
+    .menu-intro-block h2 {
+      font-family: var(--font-title);
+      font-size: clamp(1.8rem, 2.2vw, 2.4rem);
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 1rem;
+      line-height: 1.1;
+    }
+    .menu-intro-block p {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--ink-dim);
+      line-height: 1.8;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .menu-intro-block.bordered {
+      border-left: 3px solid var(--bordeaux);
+      padding-left: 1.75rem;
+    }
+
+    /* ===== MENU SECTIONS ===== */
+    .msec {
+      padding: 5rem 0;
+      border-top: 1px solid var(--sep);
+      background: var(--bg);
+    }
+    .msec.alt { background: var(--surface); }
+    .msec-title {
+      font-family: var(--font-title);
+      font-size: clamp(2.8rem, 5.5vw, 5rem);
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--ink);
+      line-height: 0.95;
+      margin-bottom: 0.4rem;
+    }
+    .msec-title em { font-style: normal; }
+    .msec-note {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+      font-style: italic;
+      margin-bottom: 3rem;
+    }
+
+    /* ===== MENU ITEMS ===== */
+    .mlist { list-style: none; }
+    .mitem {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1.25rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--sep);
+    }
+    .mitem:last-child { border-bottom: none; }
+    .mitem-left { flex: 1; min-width: 0; }
+    .mitem-name {
+      font-family: var(--font-d);
+      font-size: 1.55rem;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: 0.01em;
+      line-height: 1.25;
+    }
+    .mitem-desc {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--ink-dim);
+      margin-top: 0.25rem;
+      line-height: 1.55;
+      max-width: 55ch;
+    }
+    .mitem-tag {
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--bordeaux);
+      margin-top: 0.2rem;
+    }
+    .mitem-price {
+      font-family: var(--font-d);
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--ink);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .mitem-price sup {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      margin-right: 0.1rem;
+    }
+
+    /* two-column menu grid */
+    .mgrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 3.5rem;
+    }
+
+    /* ===== BOLINHO PHOTOS ===== */
+    .bolinho-photos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+    .bolinho-photo-wrap {
+      overflow: hidden;
+    }
+    .bolinho-photo-wrap img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ===== BOLINHO QUOTE ===== */
+    .bolinho-quote {
+      border-left: 4px solid var(--bordeaux);
+      padding: 1.75rem 2rem;
+      background: #fff;
+      border-radius: 0 2px 2px 0;
+      margin-bottom: 3rem;
+      font-family: var(--font-d);
+      font-style: italic;
+      font-size: 1.25rem;
+      font-weight: 400;
+      line-height: 1.8;
+      color: var(--ink-dim);
+    }
+
+    /* ===== FRITAS ALTERNADO ===== */
+    .fritas-block {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 0 3rem;
+      align-items: center;
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--sep);
+    }
+    .fritas-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .fritas-block--reverse { grid-template-columns: 2fr 3fr; }
+    .fritas-photo {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+    .fritas-text { padding: 1rem 0; }
+    .fritas-num {
+      font-family: var(--font-d);
+      font-size: 4rem;
+      font-weight: 300;
+      color: var(--bordeaux);
+      opacity: 0.25;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.04em;
+    }
+    .fritas-price {
+      font-family: var(--font-d);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--bordeaux);
+      margin-top: 1.25rem;
+      line-height: 1;
+    }
+    .fritas-price sup {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-right: 0.15rem;
+    }
+    .fritas-text .mitem-desc { margin-top: 0.5rem; }
+    .fritas-text .mitem-tag  { margin-top: 0.4rem; }
+    .msec-note--mb { margin-bottom: 2rem; }
+    .sec-div--mb   { margin-bottom: 2rem; }
+    .loc-map {
+      aspect-ratio: 1;
+      overflow: hidden;
+      min-height: 320px;
+    }
+    .loc-map iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    @media (max-width: 720px) {
+      .fritas-block,
+      .fritas-block--reverse {
+        grid-template-columns: 1fr;
+        gap: 1.5rem 0;
+      }
+      .fritas-block--reverse .fritas-photo { order: -1; }
+      .fritas-photo { aspect-ratio: 4/3; }
+      .fritas-num { font-size: 3rem; }
+      .fritas-price { font-size: 1.6rem; }
+    }
+
+    /* ===== PETISCO ALTERNADO ===== */
+    .petisco-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 3.5rem;
+      align-items: center;
+      margin-bottom: 3.5rem;
+      padding-bottom: 3.5rem;
+      border-bottom: 1px solid var(--sep);
+    }
+    .petisco-block:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .petisco-block.reverse { direction: rtl; }
+    .petisco-block.reverse > * { direction: ltr; }
+    .petisco-photo {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+    }
+    .petisco-photo--full {
+      aspect-ratio: unset;
+      object-fit: contain;
+      height: auto;
+    }
+    .petisco-items { display: flex; flex-direction: column; }
+    .petisco-block-label {
+      font-family: var(--font-sc);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: var(--bordeaux);
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 720px) {
+      .petisco-block {
+        grid-template-columns: 1fr;
+        gap: 1.75rem 0;
+        direction: ltr;
+      }
+      .petisco-block.reverse { direction: ltr; }
+      .petisco-photo { aspect-ratio: 16/9; }
+    }
+
+    /* ===== RABADA HERO ===== */
+    .rabada-hero-section { padding-top: 0; padding-bottom: 0; border-top: none; }
+    .rabada-hero-section .wrap { padding: 0; }
+    .pcat .msec-title { margin-bottom: 0.3rem; }
+    .rabada-hero {
+      background: var(--ink);
+      padding: 4rem 3rem 0;
+      margin-bottom: 3.5rem;
+      overflow: hidden;
+    }
+    .rabada-hero-header {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .rabada-hero-eyebrow {
+      display: block;
+      font-family: var(--font-b);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 0.75rem;
+    }
+    .rabada-hero-title {
+      font-family: var(--font-title);
+      font-size: clamp(5rem, 16vw, 13rem);
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fff;
+      line-height: 0.85;
+      margin: 0;
+    }
+    .rabada-hero-img {
+      display: flex;
+      justify-content: center;
+      margin: 0 auto;
+      max-width: 600px;
+    }
+    .rabada-hero-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      filter: drop-shadow(0 -8px 40px rgba(109,24,35,0.5));
+    }
+    .rabada-hero-opts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin: 0 -3rem;
+    }
+    .rabada-hero-opt {
+      padding: 2rem 2rem;
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    .rabada-hero-opt:last-child { border-right: none; }
+    .rabada-hero-opt-type {
+      font-family: var(--font-sc);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: var(--bordeaux-light);
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+    }
+    .rabada-hero-opt-name {
+      font-family: var(--font-title);
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .rabada-hero-opt-desc {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.55;
+      margin-bottom: 0.75rem;
+    }
+    .rabada-hero-opt-price {
+      font-family: var(--font-d);
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+    }
+    .rabada-hero-opt-sub {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.4);
+      margin-top: 0.25rem;
+    }
+
+    @media (max-width: 720px) {
+      .rabada-hero { padding: 3rem 1.5rem 0; }
+      .rabada-hero-opts {
+        grid-template-columns: 1fr;
+        margin: 0 -1.5rem;
+      }
+      .rabada-hero-opt {
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        padding: 1.5rem;
+      }
+      .rabada-hero-opt:last-child { border-bottom: none; }
+    }
+
+    /* ===== RABADA FEATURE ===== */
+    .rabada-feat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 4rem;
+    }
+    .rabada-img-wrap {
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto 2.5rem;
+    }
+    .rabada-img-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      filter: drop-shadow(0 20px 48px rgba(109,24,35,0.18));
+    }
+    .rabada-opts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      width: 100%;
+      border: 1px solid var(--sep);
+      background: #fff;
+    }
+    .rabada-opts .ropt {
+      padding: 1.75rem 1.5rem;
+      border-right: 1px solid var(--sep);
+    }
+    .rabada-opts .ropt:last-child { border-right: none; }
+    .img-placeholder {
+      aspect-ratio: 4/3;
+      background: var(--surface-2);
+      border: 1px dashed var(--sep);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .ropt-type {
+      font-family: var(--font-sc);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+    }
+    .ropt-name {
+      font-family: var(--font-title);
+      font-size: 1.5rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+      line-height: 1;
+    }
+    .ropt-desc {
+      font-size: 0.9rem;
+      color: var(--ink-dim);
+      line-height: 1.55;
+      margin-bottom: 0.6rem;
+    }
+    .ropt-price {
+      font-family: var(--font-d);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--bordeaux);
+      line-height: 1;
+    }
+    .ropt-sub {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    @media (max-width: 720px) {
+      .rabada-opts { grid-template-columns: 1fr; }
+      .rabada-opts .ropt { border-right: none; border-bottom: 1px solid var(--sep); }
+      .rabada-opts .ropt:last-child { border-bottom: none; }
+    }
+
+    /* ===== PRATO CATEGORIES ===== */
+    .pcat { margin-bottom: 3.5rem; }
+    .pcat:last-child { margin-bottom: 0; }
+    .pcat > .petisco-block { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .pcat-title {
+      font-family: var(--font-sc);
+      font-size: 0.92rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: var(--bordeaux);
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--sep);
+      margin-bottom: 1.25rem;
+    }
+    .pcat-note {
+      font-size: 1rem;
+      color: var(--ink-dim);
+      font-style: italic;
+      margin-bottom: 1.25rem;
+      line-height: 1.55;
+    }
+
+    /* ===== ADICIONAIS ===== */
+    .add-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--sep);
+      background: #fff;
+    }
+    .add-item {
+      padding: 1.1rem 1.4rem;
+      border-right: 1px solid var(--sep);
+      border-bottom: 1px solid var(--sep);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .add-name {
+      font-family: var(--font-d);
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+    .add-price {
+      font-family: var(--font-d);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--bordeaux);
+      white-space: nowrap;
+    }
+
+    /* ===== LOCATION ===== */
+    .location { padding: 6rem 0; background: var(--surface); }
+    .loc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .loc-title {
+      font-family: var(--font-title);
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+      color: var(--ink);
+    }
+    .loc-detail { margin-bottom: 1.75rem; }
+    .loc-label {
+      font-family: var(--font-sc);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: var(--bordeaux);
+      margin-bottom: 0.4rem;
+    }
+    .loc-val {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--ink-dim);
+      line-height: 1.75;
+    }
+    .loc-val a {
+      color: var(--bordeaux);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: rgba(109,24,35,0.3);
+      transition: color 180ms, text-decoration-color 180ms;
+    }
+    .loc-val a:hover {
+      color: var(--bordeaux-light);
+      text-decoration-color: var(--bordeaux-light);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--ink);
+      border-top: 1px solid var(--sep);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: var(--font-title);
+      font-size: 1.5rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 0.5rem;
+    }
+    .footer-copy {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.03em;
+    }
+
+    /* ===== WHATSAPP ===== */
+    .wa-float {
+      position: fixed;
+      bottom: 1.75rem;
+      right: 1.75rem;
+      z-index: 100;
+    }
+    .wa-float a {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px; height: 56px;
+      background: #25D366;
+      border-radius: 50%;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.45);
+      transition: transform 200ms ease, box-shadow 200ms ease;
+    }
+    .wa-float a:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 28px rgba(0,0,0,0.5);
+    }
+    .wa-float a:hover::after { animation: none; }
+    .wa-float svg { width: 28px; height: 28px; fill: #fff; }
+
+    .wa-float a::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: #25D366;
+      animation: wa-pulse 3.5s ease-out infinite;
+      z-index: -1;
+    }
+    @keyframes wa-pulse {
+      0%    { transform: scale(1);   opacity: 0.5; }
+      70%   { transform: scale(1.7); opacity: 0;   }
+      100%  { transform: scale(1.7); opacity: 0;   }
+    }
+
+    /* ===== SCROLL REVEAL ===== */
+    .rv {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 560ms ease, transform 560ms ease;
+    }
+    .rv.in { opacity: 1; transform: none; }
+    .rv.d1 { transition-delay: 80ms; }
+    .rv.d2 { transition-delay: 160ms; }
+    .rv.d3 { transition-delay: 240ms; }
+
+    /* ===== IMAGE ENTRANCE ===== */
+    .img-enter {
+      opacity: 0;
+      transition: opacity 750ms cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 750ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .img-enter.from-left   { transform: translateX(-70px); }
+    .img-enter.from-right  { transform: translateX(70px); }
+    .img-enter.from-top    { transform: translateY(-55px); }
+    .img-enter.from-bottom { transform: translateY(55px); }
+    .img-enter.visible     { opacity: 1; transform: translate(0, 0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .rv { opacity: 1; transform: none; transition: none; }
+      .img-enter { opacity: 1; transform: none; transition: none; }
+      @keyframes wa-pulse { from, to { box-shadow: 0 4px 18px rgba(0,0,0,0.45); } }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 720px) {
+      /* NAV */
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        inset: 0;
+        background: #fff;
+        align-items: center;
+        justify-content: center;
+        gap: 2.5rem;
+        z-index: 49;
+      }
+      .nav-links.open a { font-size: 1.1rem; color: var(--ink); }
+      .nav-burger { display: flex; }
+
+      /* ESPAÃ‡AMENTOS GERAIS */
+      body { font-size: 16px; }
+      .wrap { padding: 0 1rem; }
+      .msec { padding: 3rem 0; }
+      .hours { padding: 3.5rem 0; }
+      .menu-intro { padding: 3.5rem 0 2rem; }
+      .location { padding: 3.5rem 0; }
+
+      /* HORÃRIOS â€” 7 colunas reduzidas */
+      .hours-grid { grid-template-columns: repeat(7, 1fr); }
+      .hours-cell { padding: 0.75rem 0.2rem; }
+      .hours-day { font-size: 0.52rem; letter-spacing: 0.05em; margin-bottom: 0.35rem; }
+      .hours-time { font-size: 0.65rem; line-height: 1.3; }
+      .hours-time.closed { font-size: 0.58rem; }
+      .hours-heading { font-size: 1.8rem; margin-bottom: 1.5rem; }
+
+      /* MENU INTRO â€” 3 colunas compactas */
+      .menu-intro-grid { gap: 0 1rem; }
+      .menu-intro-block h2 { font-size: 1.1rem; }
+      .menu-intro-block p { font-size: 0.65rem; letter-spacing: 0.02em; }
+      .menu-intro-image { aspect-ratio: 3/4; }
+
+      /* TÃTULOS DE SEÃ‡ÃƒO */
+      .msec-title { font-size: clamp(1.9rem, 8vw, 3rem); }
+      .msec-note { font-size: 0.78rem; }
+      .sec-div-label { font-size: 0.7rem; }
+
+      /* ITENS DO CARDÃPIO */
+      .mitem { padding: 0.75rem 0; }
+      .mitem-name { font-size: 1.05rem; }
+      .mitem-desc { font-size: 0.78rem; }
+      .mitem-tag { font-size: 0.68rem; }
+      .mitem-price { font-size: 1rem; }
+
+      /* BOLINHOS â€” 2 colunas compactas */
+      .mgrid { gap: 0 1rem; }
+      .bolinho-quote { font-size: 0.9rem; padding: 1rem 1.25rem; }
+      .bolinho-photos { gap: 0.5rem; margin-top: 1.5rem; }
+
+      /* PETISCO BLOCKS â€” mantÃ©m 2 colunas */
+      .petisco-block { gap: 0 1.25rem; margin-bottom: 2rem; padding-bottom: 2rem; }
+      .petisco-block-label { font-size: 0.68rem; margin-bottom: 1rem; }
+
+      /* FRITAS â€” mantÃ©m 2 colunas */
+      .fritas-block { gap: 0 1.25rem; margin-bottom: 2rem; padding-bottom: 2rem; }
+      .fritas-num { font-size: 2.5rem; }
+      .fritas-price { font-size: 1.3rem; margin-top: 0.75rem; }
+      .fritas-text .mitem-name { font-size: 1.1rem; }
+
+      /* RABADA HERO */
+      .rabada-hero { padding: 2rem 1.25rem 0; }
+      .rabada-hero-title { font-size: clamp(3rem, 14vw, 6rem); }
+      .rabada-hero-eyebrow { font-size: 0.62rem; }
+      .rabada-hero-opts { grid-template-columns: repeat(3, 1fr); margin: 0 -1.25rem; }
+      .rabada-hero-opt { padding: 1rem 0.75rem; }
+      .rabada-hero-opt-type { font-size: 0.58rem; }
+      .rabada-hero-opt-name { font-size: 0.85rem; }
+      .rabada-hero-opt-desc { font-size: 0.68rem; line-height: 1.4; }
+      .rabada-hero-opt-price { font-size: 1.2rem; }
+      .rabada-hero-opt-sub { font-size: 0.65rem; }
+
+      /* PRATOS â€” categorias */
+      .pcat { margin-bottom: 2.5rem; }
+      .pcat-title { font-size: 0.75rem; }
+      .pcat-note { font-size: 0.82rem; }
+      .ropt-name { font-size: 1.1rem; }
+      .ropt-desc { font-size: 0.8rem; }
+      .ropt-price { font-size: 1.5rem; }
+
+      /* ADICIONAIS â€” 3 colunas compactas */
+      .add-grid { grid-template-columns: repeat(3, 1fr); }
+      .add-item { padding: 0.75rem 0.6rem; }
+      .add-name { font-size: 0.9rem; }
+      .add-price { font-size: 0.85rem; }
+
+      /* LOCALIZAÃ‡ÃƒO â€” mantÃ©m 2 colunas */
+      .loc-grid { gap: 1.5rem; }
+      .loc-title { font-size: 2rem; }
+      .loc-label { font-size: 0.7rem; }
+      .loc-val { font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Rabada Botequim</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#cardapio">CardÃ¡pio</a></li>
+    <li><a href="#horarios">HorÃ¡rios</a></li>
+    <li><a href="#localizacao">LocalizaÃ§Ã£o</a></li>
+  </ul>
+  <button type="button" class="nav-burger" id="navBurger" aria-label="Menu de navegaÃ§Ã£o">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-placeholder">Foto do restaurante</div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-body">
+    <p class="hero-tagline">SÃ£o JosÃ© dos Campos &mdash; Jardim Motorama</p>
+    <h1 class="hero-title"><em>Rabada</em><br>Botequim</h1>
+    <p class="hero-sub">Comida feita na hora, com alma de botequim de bairro. Sem pressa, sem frescura.</p>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-inner">CardÃ¡pio</div>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section class="insta-sec">
+  <div class="insta-inner">
+    <div class="insta-left">
+      <div class="insta-text">
+        <p class="insta-eyebrow">Acompanhe</p>
+        <h2 class="insta-title">Novidades,<br>pratos e muito<br>mais no Instagram</h2>
+      </div>
+      <a class="insta-btn" href="https://www.instagram.com/rabadabotequim/" target="_blank" rel="noopener noreferrer" aria-label="Seguir no Instagram">
+      <span class="insta-btn-bg"></span>
+      <span class="insta-btn-content">
+        <svg class="insta-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <radialGradient id="ig-g1" cx="19%" cy="100%" r="128%">
+              <stop offset="0%" stop-color="#fdf497"/>
+              <stop offset="10%" stop-color="#fdf497"/>
+              <stop offset="25%" stop-color="#fd5949"/>
+              <stop offset="50%" stop-color="#d6249f"/>
+              <stop offset="75%" stop-color="#285AEB"/>
+            </radialGradient>
+          </defs>
+          <rect width="48" height="48" rx="11" fill="url(#ig-g1)"/>
+          <circle cx="24" cy="24" r="8.5" stroke="#fff" stroke-width="2.8"/>
+          <circle cx="34" cy="13.5" r="2" fill="#fff"/>
+          <rect x="5" y="5" width="38" height="38" rx="9" stroke="#fff" stroke-width="2.8" fill="none"/>
+        </svg>
+        <span class="insta-btn-texts">
+          <span class="insta-btn-label">Nos siga no Instagram</span>
+          <span class="insta-btn-handle">@rabadabotequim</span>
+        </span>
+        <svg class="insta-arrow" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </a>
+    </div>
+    <div class="insta-phone">
+      <img src="images/iphone-insta.png" alt="Rabada Botequim no Instagram">
+    </div>
+  </div>
+</section>
+
+<!-- HORÃRIOS -->
+<section class="hours" id="horarios">
+  <div class="wrap">
+    <div class="sec-div rv"><span class="sec-div-label">Funcionamento</span></div>
+    <h2 class="hours-heading rv">Quando estamos abertos</h2>
+    <div class="hours-grid rv">
+      <div class="hours-cell">
+        <div class="hours-day">Segunda</div>
+        <div class="hours-time closed">Fechado</div>
+      </div>
+      <div class="hours-cell">
+        <div class="hours-day">TerÃ§a</div>
+        <div class="hours-time closed">Fechado</div>
+      </div>
+      <div class="hours-cell">
+        <div class="hours-day">Quarta</div>
+        <div class="hours-time closed">Fechado</div>
+      </div>
+      <div class="hours-cell">
+        <div class="hours-day">Quinta</div>
+        <div class="hours-time">12h<br>Ã s 22h</div>
+      </div>
+      <div class="hours-cell">
+        <div class="hours-day">Sexta</div>
+        <div class="hours-time">12h<br>Ã s 22h</div>
+      </div>
+      <div class="hours-cell">
+        <div class="hours-day">SÃ¡bado</div>
+        <div class="hours-time">12h<br>Ã s 22h</div>
+      </div>
+      <div class="hours-cell">
+        <div class="hours-day">Domingo</div>
+        <div class="hours-time">11h<br>Ã s 18h</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARDÃPIO INTRO -->
+<section class="menu-intro" id="cardapio">
+  <div class="wrap">
+    <div class="menu-intro-grid">
+      <div class="menu-intro-block bordered rv">
+        <h2>Nosso cardÃ¡pio Ã© vivo.</h2>
+        <p>
+          Mantemos alguns pratos como base, mas qualquer item pode sair do cardÃ¡pio sem aviso prÃ©vio.
+          Os pratos sÃ£o preparados na hora, de quinta a sÃ¡bado das 12h Ã s 20h
+          e aos domingos das 11h Ã s 17h.
+        </p>
+      </div>
+      <img
+        class="menu-intro-image rv d1"
+        src="images/cardapio_3d_v1.png"
+        alt="CardÃ¡pio do Rabada Botequim"
+      >
+      <div class="menu-intro-block bordered rv d2">
+        <h2>Especial da semana.</h2>
+        <p>
+          Prato, porÃ§Ã£o ou bolinho servido durante o perÃ­odo estabelecido pela chef.
+          Normalmente de sexta a domingo. Na semana seguinte, novos pratos entram no cardÃ¡pio.
+          Aproveitem enquanto hÃ¡ disponibilidade.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RABADA HERO -->
+<section class="msec rabada-hero-section">
+  <div class="wrap">
+    <div class="rabada-hero rv">
+      <div class="rabada-hero-header">
+        <span class="rabada-hero-eyebrow">Especial da Casa &mdash; Servida todos os dias</span>
+        <h3 class="rabada-hero-title">Rabada</h3>
+      </div>
+      <div class="rabada-hero-img">
+        <img src="images/rabada.png" alt="Rabada com angu â€” prato principal do Rabada Botequim">
+      </div>
+      <div class="rabada-hero-opts">
+        <div class="rabada-hero-opt">
+          <div class="rabada-hero-opt-type">Individual</div>
+          <div class="rabada-hero-opt-name">Rabada com Angu</div>
+          <div class="rabada-hero-opt-desc">Arroz, rabada cozida lentamente sem pressÃ£o, ao molho com angu e agriÃ£o</div>
+          <div class="rabada-hero-opt-price">R$ 58,90</div>
+        </div>
+        <div class="rabada-hero-opt">
+          <div class="rabada-hero-opt-type">PorÃ§Ã£o Inteira</div>
+          <div class="rabada-hero-opt-name">Para Petiscar</div>
+          <div class="rabada-hero-opt-desc">NÃ£o acompanha arroz</div>
+          <div class="rabada-hero-opt-price">R$ 109,80</div>
+          <div class="rabada-hero-opt-sub">Serve 2 pessoas</div>
+        </div>
+        <div class="rabada-hero-opt">
+          <div class="rabada-hero-opt-type">Meia PorÃ§Ã£o</div>
+          <div class="rabada-hero-opt-name">Para Petiscar</div>
+          <div class="rabada-hero-opt-price">R$ 54,90</div>
+          <div class="rabada-hero-opt-sub">Serve 1 pessoa</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRATOS -->
+<section class="msec alt">
+  <div class="wrap">
+    <div class="sec-div rv"><span class="sec-div-label">Pratos</span></div>
+    <h2 class="msec-title rv"><em>Pratos</em></h2>
+    <p class="msec-note rv">Preparados na hora &mdash; qui a sÃ¡b 12h Ã s 20h &mdash; domingo 11h Ã s 17h</p>
+
+    <!-- PARMEGIANA -->
+    <div class="pcat rv">
+      <div class="petisco-block">
+        <div class="petisco-items">
+          <div class="pcat-title">Parmegiana Individual</div>
+          <p class="pcat-note">Molho artesanal com manjericÃ£o. Servido com arroz e batatas fritas.</p>
+          <ul class="mlist">
+            <li class="mitem">
+              <div class="mitem-left"><div class="mitem-name">Frango</div></div>
+              <div class="mitem-price"><sup>R$</sup>46,00</div>
+            </li>
+            <li class="mitem">
+              <div class="mitem-left"><div class="mitem-name">Berinjela</div></div>
+              <div class="mitem-price"><sup>R$</sup>38,00</div>
+            </li>
+          </ul>
+        </div>
+        <img class="petisco-photo petisco-photo--full" src="images/mila.png" alt="Parmegiana">
+      </div>
+    </div>
+
+    <!-- GORGONZOLA -->
+    <div class="pcat rv">
+      <div class="pcat-title">Gorgonzola Individual</div>
+      <p class="pcat-note">Molho artesanal de gorgonzola, salpicado com salsinha e alho torrado. Servido com arroz e batatas fritas.</p>
+      <ul class="mlist">
+        <li class="mitem">
+          <div class="mitem-left"><div class="mitem-name">Frango</div></div>
+          <div class="mitem-price"><sup>R$</sup>46,00</div>
+        </li>
+        <li class="mitem">
+          <div class="mitem-left"><div class="mitem-name">Baby Beef</div></div>
+          <div class="mitem-price"><sup>R$</sup>52,00</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- TRIVIAIS -->
+    <div class="pcat rv">
+      <div class="petisco-block reverse">
+        <div class="petisco-items">
+          <div class="pcat-title">Triviais Individual</div>
+          <ul class="mlist">
+            <li class="mitem">
+              <div class="mitem-left">
+                <div class="mitem-name">Baby Beef</div>
+                <div class="mitem-desc">Arroz, feijÃ£o, bife acebolado e fritas</div>
+              </div>
+              <div class="mitem-price"><sup>R$</sup>38,00</div>
+            </li>
+            <li class="mitem">
+              <div class="mitem-left">
+                <div class="mitem-name">Baby Beef a Cavalo</div>
+                <div class="mitem-desc">Arroz, feijÃ£o, bife, ovo e fritas</div>
+              </div>
+              <div class="mitem-price"><sup>R$</sup>41,90</div>
+            </li>
+            <li class="mitem">
+              <div class="mitem-left">
+                <div class="mitem-name">Milanesa</div>
+                <div class="mitem-desc">Arroz, feijÃ£o, milanesa e fritas</div>
+              </div>
+              <div class="mitem-price"><sup>R$</sup>44,90</div>
+            </li>
+            <li class="mitem">
+              <div class="mitem-left">
+                <div class="mitem-name">Feijoada</div>
+                <div class="mitem-desc">Arroz, feijoada, couve, torresmo, linguiÃ§a e vinagrete</div>
+                <div class="mitem-tag">SÃ¡bado 12h Ã s 15h &mdash; Domingo 11h Ã s 15h</div>
+              </div>
+              <div class="mitem-price"><sup>R$</sup>45,00</div>
+            </li>
+          </ul>
+        </div>
+        <img class="petisco-photo petisco-photo--full" src="images/caca.png" alt="Baby Beef trivial">
+      </div>
+    </div>
+
+    <!-- KIDS -->
+    <div class="pcat rv">
+      <div class="pcat-title">Kids</div>
+      <ul class="mlist">
+        <li class="mitem">
+          <div class="mitem-left">
+            <div class="mitem-name">Frango Baby Beef</div>
+            <div class="mitem-desc">Tirinhas de frango crocante com fritas, arroz e feijÃ£o</div>
+          </div>
+          <div class="mitem-price"><sup>R$</sup>28,00</div>
+        </li>
+        <li class="mitem">
+          <div class="mitem-left">
+            <div class="mitem-name">Kids Nuggets</div>
+          </div>
+          <div class="mitem-price"><sup>R$</sup>28,00</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PETISCOS -->
+<section class="msec">
+  <div class="wrap">
+    <div class="sec-div rv"><span class="sec-div-label">Para Petiscar</span></div>
+    <h2 class="msec-title rv">Para despertar<br><em>o apetite</em></h2>
+    <p class="msec-note rv">Tempo mÃ©dio de preparo: 20 a 30 min</p>
+
+    <!-- Bloco 1: itens Ã  esquerda, foto Ã  direita -->
+    <div class="petisco-block rv">
+      <div class="petisco-items">
+        <div class="petisco-block-label">PorÃ§Ãµes</div>
+        <ul class="mlist">
+          <li class="mitem">
+            <div class="mitem-left">
+              <div class="mitem-name">Pururuca de Frango</div>
+              <div class="mitem-desc">PorÃ§Ã£o de couro de frango frita e extremamente crocante</div>
+              <div class="mitem-tag">Â±350g</div>
+            </div>
+            <div class="mitem-price"><sup>R$</sup>24,70</div>
+          </li>
+          <li class="mitem">
+            <div class="mitem-left">
+              <div class="mitem-name">Torresmo de Barriga</div>
+              <div class="mitem-desc">Barriga de porco confitada e servida sequinha</div>
+              <div class="mitem-tag">Â±300g</div>
+            </div>
+            <div class="mitem-price"><sup>R$</sup>34,90</div>
+          </li>
+        </ul>
+      </div>
+      <img class="petisco-photo petisco-photo--full" src="images/torresmo.png" alt="Torresmo de barriga">
+    </div>
+
+    <!-- Bloco 2: foto Ã  esquerda, itens Ã  direita (reverse) -->
+    <div class="petisco-block reverse rv">
+      <div class="petisco-items">
+        <div class="petisco-block-label">Aves &amp; Legumes</div>
+        <ul class="mlist">
+          <li class="mitem">
+            <div class="mitem-left">
+              <div class="mitem-name">Frango a Passarinho</div>
+              <div class="mitem-desc">PedaÃ§os de frango com tempero especial, fritos e bem crocantes</div>
+              <div class="mitem-tag">Â±1 kg</div>
+            </div>
+            <div class="mitem-price"><sup>R$</sup>57,90</div>
+          </li>
+          <li class="mitem">
+            <div class="mitem-left">
+              <div class="mitem-name">Tiras Crocantes de Berinjela</div>
+              <div class="mitem-desc">Tirinhas de berinjela empanadas com panko</div>
+            </div>
+            <div class="mitem-price"><sup>R$</sup>34,90</div>
+          </li>
+        </ul>
+      </div>
+      <img class="petisco-photo" src="images/franguin.png" alt="Frango a passarinho">
+    </div>
+
+    <!-- Bloco 3: item solitÃ¡rio, linha completa -->
+    <div class="rv">
+      <ul class="mlist">
+        <li class="mitem">
+          <div class="mitem-left">
+            <div class="mitem-name">Carne Louca</div>
+            <div class="mitem-desc">Carne cozida e desfiada com tomate, cebola roxa, cebolinha e pimentÃ£o (opcional). Acompanha pÃ£es.</div>
+          </div>
+          <div class="mitem-price"><sup>R$</sup>54,90</div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- FRITAS -->
+<section class="msec alt">
+  <div class="wrap">
+    <div class="sec-div rv"><span class="sec-div-label">Acompanhamento</span></div>
+    <h2 class="msec-title rv"><em>Fritas</em></h2>
+    <p class="msec-note rv">Sequinhas e crocantes</p>
+
+    <!-- Tradicional: foto esquerda, texto direita -->
+    <div class="fritas-block rv">
+      <img class="fritas-photo" src="images/batata-sem.png" alt="Batata frita tradicional">
+      <div class="fritas-text">
+        <div class="fritas-num">01</div>
+        <div class="mitem-name">Tradicional</div>
+        <div class="mitem-desc">Batata frita, sequinha e crocante</div>
+        <div class="mitem-tag">Â±450g</div>
+        <div class="fritas-price"><sup>R$</sup>36,90</div>
+      </div>
+    </div>
+
+    <!-- Especial: texto esquerda, foto direita -->
+    <div class="fritas-block fritas-block--reverse rv">
+      <div class="fritas-text">
+        <div class="fritas-num">02</div>
+        <div class="mitem-name">Especial</div>
+        <div class="mitem-desc">Batata frita com cheddar ou mussarela e bacon</div>
+        <div class="fritas-price"><sup>R$</sup>46,00</div>
+      </div>
+      <img class="fritas-photo" src="images/com-bacon.png" alt="Batata frita especial com bacon">
+    </div>
+
+  </div>
+</section>
+
+<!-- PRATOS -->
+<section class="msec">
+  <div class="wrap">
+
+    <!-- BOLINHOS -->
+    <div class="pcat rv">
+      <div class="sec-div"><span class="sec-div-label">Entradas</span></div>
+      <h3 class="msec-title">Bolinhos</h3>
+      <p class="msec-note">Unidade 70g &mdash; qui a sÃ¡b 12h Ã s 22h &mdash; domingo 11h Ã s 17h &mdash; fritos na hora</p>
+
+      <div class="bolinho-quote">
+        Produzidos artesanalmente em nossa cozinha, nossos bolinhos passam por um processo de atÃ© 36 horas.
+        Sem massa, apenas recheio, resultando em uma textura crocante por fora e cremosa por dentro.
+        Fritos exclusivamente apÃ³s o pedido. Uma espera consciente para uma experiÃªncia gastronÃ´mica completa.
+      </div>
+
+      <div class="mgrid">
+        <ul class="mlist">
+          <li class="mitem">
+            <div class="mitem-left">
+              <div class="mitem-name">Carne Louca com Queijo</div>
+              <div class="mitem-tag">2 unidades de 35g</div>
+            </div>
+            <div class="mitem-price"><sup>R$</sup>10,50</div>
+          </li>
+          <li class="mitem">
+            <div class="mitem-left">
+              <div class="mitem-name">Feijoada</div>
+              <div class="mitem-tag">2 unidades de 35g</div>
+            </div>
+            <div class="mitem-price"><sup>R$</sup>10,50</div>
+          </li>
+          <li class="mitem">
+            <div class="mitem-left">
+              <div class="mitem-name">Pernil da VÃ³</div>
+              <div class="mitem-tag">2 unidades de 35g</div>
+            </div>
+            <div class="mitem-price"><sup>R$</sup>11,00</div>
+          </li>
+          <li class="mitem">
+            <div class="mitem-left"><div class="mitem-name">Mandioca com Carne Seca</div></div>
+            <div class="mitem-price"><sup>R$</sup>11,00</div>
+          </li>
+          <li class="mitem">
+            <div class="mitem-left"><div class="mitem-name">AbÃ³bora com Carne Seca</div></div>
+            <div class="mitem-price"><sup>R$</sup>11,00</div>
+          </li>
+          <li class="mitem">
+            <div class="mitem-left"><div class="mitem-name">Costela com Mandioca</div></div>
+            <div class="mitem-price"><sup>R$</sup>11,00</div>
+          </li>
+        </ul>
+        <ul class="mlist">
+          <li class="mitem">
+            <div class="mitem-left"><div class="mitem-name">Coxinha com Alho-PorÃ³</div></div>
+            <div class="mitem-price"><sup>R$</sup>10,50</div>
+          </li>
+          <li class="mitem">
+            <div class="mitem-left"><div class="mitem-name">Calabresa com RequeijÃ£o</div></div>
+            <div class="mitem-price"><sup>R$</sup>10,50</div>
+          </li>
+          <li class="mitem">
+            <div class="mitem-left"><div class="mitem-name">Gorgonzola com Milho</div></div>
+            <div class="mitem-price"><sup>R$</sup>11,00</div>
+          </li>
+          <li class="mitem">
+            <div class="mitem-left"><div class="mitem-name">Palmito com Alho-PorÃ³</div></div>
+            <div class="mitem-price"><sup>R$</sup>11,00</div>
+          </li>
+          <li class="mitem">
+            <div class="mitem-left"><div class="mitem-name">Rabada</div></div>
+            <div class="mitem-price"><sup>R$</sup>13,00</div>
+          </li>
+          <li class="mitem">
+            <div class="mitem-left"><div class="mitem-name">Joelho Defumado c/ Catupiry</div></div>
+            <div class="mitem-price"><sup>R$</sup>14,00</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="bolinho-photos">
+        <div class="bolinho-photo-wrap">
+          <img src="images/bolinho-costela.png" alt="Bolinho de costela">
+        </div>
+        <div class="bolinho-photo-wrap">
+          <img src="images/bolinho-queijo.png" alt="Bolinho de queijo">
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ADICIONAIS -->
+<section class="msec alt">
+  <div class="wrap">
+    <div class="sec-div rv"><span class="sec-div-label">Extras</span></div>
+    <h2 class="msec-title rv"><em>Adicionais</em></h2>
+    <p class="msec-note msec-note--mb rv">Para completar o prato do seu jeito</p>
+    <div class="add-grid rv">
+      <div class="add-item"><span class="add-name">Arroz</span><span class="add-price">R$ 10,00</span></div>
+      <div class="add-item"><span class="add-name">FeijÃ£o</span><span class="add-price">R$ 6,00</span></div>
+      <div class="add-item"><span class="add-name">Salada</span><span class="add-price">R$ 10,00</span></div>
+      <div class="add-item"><span class="add-name">Angu</span><span class="add-price">R$ 7,00</span></div>
+      <div class="add-item"><span class="add-name">Couve</span><span class="add-price">R$ 5,00</span></div>
+      <div class="add-item"><span class="add-name">Fritas</span><span class="add-price">R$ 10,00</span></div>
+      <div class="add-item"><span class="add-name">Geleia de Pimenta</span><span class="add-price">R$ 4,00</span></div>
+      <div class="add-item"><span class="add-name">Molho Gorgonzola</span><span class="add-price">R$ 5,00</span></div>
+      <div class="add-item"><span class="add-name">PÃ£o</span><span class="add-price">R$ 5,00</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCALIZAÃ‡ÃƒO -->
+<section class="location" id="localizacao">
+  <div class="wrap">
+    <div class="loc-grid">
+      <div>
+        <div class="sec-div sec-div--mb rv"><span class="sec-div-label">Onde Estamos</span></div>
+        <h2 class="loc-title rv">Venha nos<br><em>visitar</em></h2>
+        <div class="loc-detail rv">
+          <div class="loc-label">EndereÃ§o</div>
+          <div class="loc-val">
+            Av. das Rosas, 840<br>
+            Jardim Motorama<br>
+            SÃ£o JosÃ© dos Campos &mdash; SP<br>
+            CEP 12224-000
+          </div>
+        </div>
+        <div class="loc-detail rv d1">
+          <div class="loc-label">WhatsApp</div>
+          <div class="loc-val">
+            <a href="https://wa.me/551239290240" target="_blank" rel="noopener">(12) 3929-0240</a>
+          </div>
+        </div>
+        <div class="loc-detail rv d2">
+          <div class="loc-label">Funcionamento</div>
+          <div class="loc-val">
+            Qui &mdash; SÃ¡b: 12h Ã s 22h<br>
+            Domingo: 11h Ã s 18h
+          </div>
+        </div>
+      </div>
+      <div class="loc-map rv">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3667.2!2d-45.821614!3d-23.173192!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cc4d0c68b2d50b%3A0xc8a09858e3637234!2sRabada+botequim!5e0!3m2!1spt-BR!2sbr!4v1748913600000"
+          width="100%"
+          height="100%"
+          allowfullscreen=""
+          loading="lazy"
+          title="LocalizaÃ§Ã£o do Rabada Botequim"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Rabada Botequim</div>
+  <p class="footer-copy">Av. das Rosas, 840 &mdash; Jardim Motorama &mdash; SÃ£o JosÃ© dos Campos, SP</p>
+</footer>
+
+<!-- WHATSAPP FLUTUANTE -->
+<div class="wa-float">
+  <a href="https://wa.me/551239290240" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco pelo WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+  // Scroll reveal via IntersectionObserver
+  const reveals = document.querySelectorAll('.rv');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+  reveals.forEach(el => io.observe(el));
+
+  // Mobile nav
+  const burger = document.getElementById('navBurger');
+  const links  = document.getElementById('navLinks');
+  burger.addEventListener('click', () => {
+    const open = links.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open);
+  });
+  links.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      links.classList.remove('open');
+      burger.classList.remove('open');
+    });
+  });
+
+  // Image entrance â€” alternating directions
+  const dirs = ['from-left', 'from-right', 'from-top', 'from-bottom'];
+  const imgs = document.querySelectorAll('img:not(.hero-placeholder img)');
+  imgs.forEach((img, i) => {
+    img.classList.add('img-enter', dirs[i % 4]);
+  });
+  const imgIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        imgIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -20px 0px' });
+  document.querySelectorAll('.img-enter').forEach(el => imgIO.observe(el));
+</script>
+</body>
+</html>
