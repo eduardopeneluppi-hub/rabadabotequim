@@ -734,12 +734,22 @@
       margin: 0;
     }
     .rabada-hero-img {
+      position: relative;
       display: flex;
       justify-content: center;
       margin: 0 auto;
       max-width: 600px;
       animation: rabada-float 6s ease-in-out infinite;
       will-change: transform;
+    }
+    .rabada-steam-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      filter: blur(14px);
+      z-index: 2;
     }
     .rabada-hero-img img {
       width: 100%;
@@ -1442,6 +1452,7 @@
         <h3 class="rabada-hero-title">Rabada</h3>
       </div>
       <div class="rabada-hero-img">
+        <canvas id="rabadaSteam" class="rabada-steam-canvas" aria-hidden="true"></canvas>
         <img src="images/rabada.png" alt="Rabada com angu — prato principal do Rabada Botequim" data-no-enter>
       </div>
       <div class="rabada-hero-opts">
@@ -1890,6 +1901,78 @@
   });
   backdrop.addEventListener('click', closeMenu);
   links.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+  // Steam effect — canvas particle system
+  (function () {
+    const canvas = document.getElementById('rabadaSteam');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let rafId;
+
+    function resize() {
+      const img = canvas.nextElementSibling;
+      if (!img) return;
+      canvas.width  = img.offsetWidth  || 400;
+      canvas.height = img.offsetHeight || 400;
+    }
+
+    class Particle {
+      constructor() { this.init(); }
+      init() {
+        const w = canvas.width, h = canvas.height;
+        this.x       = w * 0.22 + Math.random() * w * 0.56;
+        this.y       = h * 0.52 + Math.random() * h * 0.1;
+        this.r       = 7  + Math.random() * 10;
+        this.vx      = (Math.random() - 0.5) * 0.45;
+        this.vy      = -(0.55 + Math.random() * 0.75);
+        this.life    = 0;
+        this.maxLife = 110 + Math.random() * 70 | 0;
+        this.alpha   = 0;
+        this.peak    = 0.18 + Math.random() * 0.18;
+        this.wobble  = Math.random() * Math.PI * 2;
+      }
+      update() {
+        this.life++;
+        this.wobble += 0.045;
+        this.x += this.vx + Math.sin(this.wobble) * 0.22;
+        this.y += this.vy;
+        this.r += 0.1;
+        const p = this.life / this.maxLife;
+        this.alpha = p < 0.25
+          ? (p / 0.25) * this.peak
+          : this.peak * (1 - (p - 0.25) / 0.75);
+        return this.life < this.maxLife;
+      }
+      draw() {
+        ctx.globalAlpha = Math.max(0, this.alpha);
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = '#ffffff';
+        ctx.fill();
+      }
+    }
+
+    function loop() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (Math.random() < 0.28 && particles.length < 30)
+        particles.push(new Particle());
+      particles = particles.filter(p => { const a = p.update(); if (a) p.draw(); return a; });
+      ctx.globalAlpha = 1;
+      if (!document.hidden) rafId = requestAnimationFrame(loop);
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) cancelAnimationFrame(rafId);
+      else loop();
+    });
+
+    const ro = new ResizeObserver(resize);
+    ro.observe(canvas.parentElement);
+
+    window.addEventListener('load', () => { resize(); loop(); });
+    setTimeout(() => { resize(); if (!rafId) loop(); }, 500);
+  })();
 
   // Image entrance — alternating directions
   const dirs = ['from-left', 'from-right', 'from-top', 'from-bottom'];
