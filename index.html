@@ -1067,6 +1067,13 @@
     .rv.d2 { transition-delay: 160ms; }
     .rv.d3 { transition-delay: 240ms; }
 
+    /* ===== RABADA FADE ===== */
+    .rv-fade {
+      opacity: 0;
+      transition: opacity 1000ms ease;
+    }
+    .rv-fade.in { opacity: 1; }
+
     /* ===== IMAGE ENTRANCE ===== */
     .img-enter {
       opacity: 0;
@@ -1419,13 +1426,13 @@
 <!-- RABADA HERO -->
 <section class="msec rabada-hero-section">
   <div class="wrap">
-    <div class="rabada-hero rv">
+    <div class="rabada-hero rv-fade">
       <div class="rabada-hero-header">
         <span class="rabada-hero-eyebrow">Especial da Casa &mdash; Servida todos os dias</span>
         <h3 class="rabada-hero-title">Rabada</h3>
       </div>
       <div class="rabada-hero-img">
-        <img src="images/rabada.png" alt="Rabada com angu — prato principal do Rabada Botequim">
+        <img src="images/rabada.png" alt="Rabada com angu — prato principal do Rabada Botequim" data-no-enter>
       </div>
       <div class="rabada-hero-opts">
         <div class="rabada-hero-opt">
@@ -1840,7 +1847,7 @@
 
 <script>
   // Scroll reveal via IntersectionObserver
-  const reveals = document.querySelectorAll('.rv');
+  const reveals = document.querySelectorAll('.rv, .rv-fade');
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
@@ -1876,7 +1883,7 @@
 
   // Image entrance — alternating directions
   const dirs = ['from-left', 'from-right', 'from-top', 'from-bottom'];
-  const imgs = document.querySelectorAll('img:not(.hero-placeholder img)');
+  const imgs = document.querySelectorAll('img:not(.hero-placeholder img):not([data-no-enter])');
   imgs.forEach((img, i) => {
     img.classList.add('img-enter', dirs[i % 4]);
   });
