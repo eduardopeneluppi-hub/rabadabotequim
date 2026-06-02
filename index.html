@@ -1074,7 +1074,16 @@
     }
 
     /* ===== RESPONSIVE ===== */
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
+
+      /* BASE */
+      body { font-size: 16px; }
+      .wrap { padding: 0 1.25rem; }
+      .msec { padding: 3rem 0; }
+      .hours { padding: 3rem 0; }
+      .menu-intro { padding: 3rem 0 1.5rem; }
+      .location { padding: 3rem 0; }
+
       /* NAV */
       .nav-links { display: none; }
       .nav-links.open {
@@ -1091,86 +1100,115 @@
       .nav-links.open a { font-size: 1.1rem; color: var(--ink); }
       .nav-burger { display: flex; }
 
-      /* ESPAÇAMENTOS GERAIS */
-      body { font-size: 16px; }
-      .wrap { padding: 0 1rem; }
-      .msec { padding: 3rem 0; }
-      .hours { padding: 3.5rem 0; }
-      .menu-intro { padding: 3.5rem 0 2rem; }
-      .location { padding: 3.5rem 0; }
-
-      /* HORÁRIOS — 7 colunas reduzidas */
-      .hours-grid { grid-template-columns: repeat(7, 1fr); }
-      .hours-cell { padding: 0.75rem 0.2rem; }
-      .hours-day { font-size: 0.52rem; letter-spacing: 0.05em; margin-bottom: 0.35rem; }
-      .hours-time { font-size: 0.65rem; line-height: 1.3; }
-      .hours-time.closed { font-size: 0.58rem; }
+      /* HORÁRIOS — 2 colunas no mobile */
       .hours-heading { font-size: 1.8rem; margin-bottom: 1.5rem; }
+      .hours-grid { grid-template-columns: repeat(2, 1fr); }
+      .hours-cell { padding: 1rem; border-right: 1px solid var(--sep); }
+      .hours-cell:nth-child(2n) { border-right: none; }
+      .hours-day { font-size: 0.72rem; }
+      .hours-time { font-size: 1rem; }
+      .hours-time.closed { font-size: 0.85rem; }
 
-      /* MENU INTRO — 3 colunas compactas */
-      .menu-intro-grid { gap: 0 1rem; }
-      .menu-intro-block h2 { font-size: 1.1rem; }
-      .menu-intro-block p { font-size: 0.65rem; letter-spacing: 0.02em; }
-      .menu-intro-image { aspect-ratio: 3/4; }
+      /* MENU INTRO — 1 coluna, imagem no meio */
+      .menu-intro-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .menu-intro-image { order: 1; aspect-ratio: 4/3; }
+      .menu-intro-block:first-child { order: 0; }
+      .menu-intro-block.bordered { order: 2; }
+      .menu-intro-block h2 { font-size: 1.6rem; }
+      .menu-intro-block p { font-size: 0.85rem; }
 
-      /* TÍTULOS DE SEÇÃO */
-      .msec-title { font-size: clamp(1.9rem, 8vw, 3rem); }
-      .msec-note { font-size: 0.78rem; }
-      .sec-div-label { font-size: 0.7rem; }
+      /* TÍTULOS */
+      .msec-title { font-size: clamp(2rem, 9vw, 3.2rem); }
+      .msec-note { font-size: 0.82rem; margin-bottom: 2rem; }
 
       /* ITENS DO CARDÁPIO */
-      .mitem { padding: 0.75rem 0; }
-      .mitem-name { font-size: 1.05rem; }
-      .mitem-desc { font-size: 0.78rem; }
-      .mitem-tag { font-size: 0.68rem; }
-      .mitem-price { font-size: 1rem; }
+      .mitem-name { font-size: 1.15rem; }
+      .mitem-desc { font-size: 0.85rem; }
+      .mitem-price { font-size: 1.1rem; }
 
-      /* BOLINHOS — 2 colunas compactas */
-      .mgrid { gap: 0 1rem; }
-      .bolinho-quote { font-size: 0.9rem; padding: 1rem 1.25rem; }
-      .bolinho-photos { gap: 0.5rem; margin-top: 1.5rem; }
+      /* BOLINHOS — 1 coluna */
+      .mgrid { grid-template-columns: 1fr; }
+      .bolinho-quote { font-size: 0.95rem; padding: 1.25rem 1.25rem; }
+      .bolinho-photos { gap: 0.75rem; margin-top: 2rem; }
 
-      /* PETISCO BLOCKS — mantém 2 colunas */
-      .petisco-block { gap: 0 1.25rem; margin-bottom: 2rem; padding-bottom: 2rem; }
-      .petisco-block-label { font-size: 0.68rem; margin-bottom: 1rem; }
+      /* PETISCO BLOCKS — 1 coluna */
+      .petisco-block {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-bottom: 2.5rem;
+        padding-bottom: 2.5rem;
+        direction: ltr;
+      }
+      .petisco-block.reverse { direction: ltr; }
+      .petisco-photo { aspect-ratio: 16/9; object-fit: cover; }
+      .petisco-photo--full { aspect-ratio: unset; object-fit: contain; }
 
-      /* FRITAS — mantém 2 colunas */
-      .fritas-block { gap: 0 1.25rem; margin-bottom: 2rem; padding-bottom: 2rem; }
-      .fritas-num { font-size: 2.5rem; }
-      .fritas-price { font-size: 1.3rem; margin-top: 0.75rem; }
-      .fritas-text .mitem-name { font-size: 1.1rem; }
+      /* FRITAS — 1 coluna */
+      .fritas-block,
+      .fritas-block--reverse {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-bottom: 2.5rem;
+        padding-bottom: 2.5rem;
+      }
+      .fritas-block--reverse .fritas-photo { order: -1; }
+      .fritas-photo { aspect-ratio: 4/3; }
+      .fritas-num { font-size: 3rem; }
+      .fritas-price { font-size: 1.6rem; }
 
       /* RABADA HERO */
-      .rabada-hero { padding: 2rem 1.25rem 0; }
-      .rabada-hero-title { font-size: clamp(3rem, 14vw, 6rem); }
-      .rabada-hero-eyebrow { font-size: 0.62rem; }
-      .rabada-hero-opts { grid-template-columns: repeat(3, 1fr); margin: 0 -1.25rem; }
-      .rabada-hero-opt { padding: 1rem 0.75rem; }
-      .rabada-hero-opt-type { font-size: 0.58rem; }
-      .rabada-hero-opt-name { font-size: 0.85rem; }
-      .rabada-hero-opt-desc { font-size: 0.68rem; line-height: 1.4; }
-      .rabada-hero-opt-price { font-size: 1.2rem; }
-      .rabada-hero-opt-sub { font-size: 0.65rem; }
+      .rabada-hero { padding: 2.5rem 1.25rem 0; }
+      .rabada-hero-title { font-size: clamp(3.5rem, 18vw, 7rem); }
+      .rabada-hero-eyebrow { font-size: 0.68rem; }
+      .rabada-hero-opts {
+        grid-template-columns: 1fr;
+        margin: 0 -1.25rem;
+      }
+      .rabada-hero-opt {
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        padding: 1.25rem;
+      }
+      .rabada-hero-opt:last-child { border-bottom: none; }
+      .rabada-hero-opt-name { font-size: 1.3rem; }
+      .rabada-hero-opt-price { font-size: 1.8rem; }
 
-      /* PRATOS — categorias */
+      /* PRATOS */
       .pcat { margin-bottom: 2.5rem; }
-      .pcat-title { font-size: 0.75rem; }
-      .pcat-note { font-size: 0.82rem; }
-      .ropt-name { font-size: 1.1rem; }
-      .ropt-desc { font-size: 0.8rem; }
-      .ropt-price { font-size: 1.5rem; }
+      .ropt-price { font-size: 1.7rem; }
 
-      /* ADICIONAIS — 3 colunas compactas */
-      .add-grid { grid-template-columns: repeat(3, 1fr); }
-      .add-item { padding: 0.75rem 0.6rem; }
-      .add-name { font-size: 0.9rem; }
-      .add-price { font-size: 0.85rem; }
+      /* ADICIONAIS — 2 colunas */
+      .add-grid { grid-template-columns: 1fr 1fr; }
+      .add-item { padding: 0.9rem 1rem; }
+      .add-name { font-size: 1rem; }
+      .add-price { font-size: 0.95rem; }
 
-      /* LOCALIZAÇÃO — mantém 2 colunas */
-      .loc-grid { gap: 1.5rem; }
-      .loc-title { font-size: 2rem; }
-      .loc-label { font-size: 0.7rem; }
-      .loc-val { font-size: 0.9rem; }
+      /* LOCALIZAÇÃO — 1 coluna */
+      .loc-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .loc-title { font-size: 2rem; margin-bottom: 1.5rem; }
+      .loc-map { aspect-ratio: 16/9; min-height: 240px; }
+      .loc-val { font-size: 1rem; }
+
+      /* INSTAGRAM */
+      .insta-inner {
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding: 0 1.25rem;
+      }
+      .insta-left { padding-bottom: 2.5rem; gap: 1.75rem; }
+      .insta-title { font-size: 2rem; }
+      .insta-phone { justify-content: center; }
+      .insta-phone img { width: 200px; }
+    }
+
+    @media (max-width: 400px) {
+      .hours-grid { grid-template-columns: 1fr; }
+      .hours-cell { border-right: none; }
+      .add-grid { grid-template-columns: 1fr; }
+      .add-item { border-right: none; }
     }
   </style>
 </head>
