@@ -30,7 +30,11 @@
 
     /* ===== RESET ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      max-width: 100%;
+    }
     body {
       font-family: var(--font-b);
       background: var(--bg);
@@ -39,6 +43,7 @@
       font-weight: 400;
       line-height: 1.6;
       overflow-x: hidden;
+      max-width: 100%;
     }
     img { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
@@ -1167,7 +1172,8 @@
       .rabada-hero-eyebrow { font-size: 0.75rem; }
       .rabada-hero-opts {
         grid-template-columns: 1fr;
-        margin: 0 -1.25rem;
+        margin: 0;
+        width: 100%;
       }
       .rabada-hero-opt {
         border-right: none;
