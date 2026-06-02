@@ -117,18 +117,16 @@
       position: absolute;
       inset: 0;
       background: var(--bordeaux-dim);
+      overflow: hidden;
     }
-    .hero-placeholder {
+    .hero-video {
       position: absolute;
       inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.12);
-      border: 1px dashed rgba(255,255,255,0.08);
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
     }
     .hero-overlay {
       position: absolute;
@@ -1253,7 +1251,16 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg">
-    <div class="hero-placeholder">Foto do restaurante</div>
+    <video
+      class="hero-video"
+      src="video/hero.mp4"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      aria-hidden="true"
+    ></video>
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-body">
