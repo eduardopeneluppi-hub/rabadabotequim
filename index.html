@@ -1147,11 +1147,15 @@
       .nav-backdrop { display: none; }
       .nav-burger { display: flex; z-index: 52; position: relative; }
 
-      /* HORÁRIOS — 2 colunas no mobile */
-      .hours-heading { font-size: 2rem; margin-bottom: 1.5rem; }
+      /* HORÁRIOS — 2 colunas compactas no mobile */
+      .hours { padding: 2.5rem 0; }
+      .hours-heading { font-size: 1.7rem; margin-bottom: 1.25rem; }
       .hours-grid { grid-template-columns: repeat(2, 1fr); }
-      .hours-cell { padding: 1.1rem; border-right: 1px solid var(--sep); }
+      .hours-cell { padding: 0.75rem 0.6rem; border-right: 1px solid var(--sep); }
       .hours-cell:nth-child(2n) { border-right: none; }
+      .hours-day { font-size: 0.75rem; margin-bottom: 0.3rem; }
+      .hours-time { font-size: 0.95rem; }
+      .hours-time.closed { font-size: 0.85rem; }
       .hours-day { font-size: 0.82rem; }
       .hours-time { font-size: 1.15rem; }
       .hours-time.closed { font-size: 0.95rem; }
