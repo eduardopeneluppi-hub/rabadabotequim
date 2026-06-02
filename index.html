@@ -126,7 +126,10 @@
       height: 100%;
       object-fit: cover;
       object-position: center;
-      display: block;
+      display: none;
+    }
+    @media (max-width: 768px) {
+      .hero-video { display: block; }
     }
     .hero-overlay {
       position: absolute;
