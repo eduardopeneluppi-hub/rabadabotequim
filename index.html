@@ -58,6 +58,7 @@
       align-items: center;
       justify-content: space-between;
       background: rgba(255,255,255,0.92);
+      -webkit-backdrop-filter: blur(8px);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--sep);
     }
@@ -168,6 +169,7 @@
       color: #fff;
       text-transform: uppercase;
       text-wrap: balance;
+      overflow-wrap: break-word;
       margin-bottom: 1.75rem;
     }
     .hero-title em { font-style: normal; }
@@ -178,7 +180,7 @@
       color: rgba(255,255,255,0.75);
       max-width: 40ch;
       line-height: 1.7;
-      text-wrap: pretty;
+      overflow-wrap: break-word;
     }
     .hero-scroll {
       position: relative;
@@ -1082,7 +1084,7 @@
     @media (max-width: 768px) {
 
       /* BASE */
-      body { font-size: 18px; }
+      body { font-size: 20px; font-weight: 500; }
       .wrap { padding: 0 1.25rem; }
       .msec { padding: 3rem 0; }
       .hours { padding: 3rem 0; }
@@ -1126,19 +1128,20 @@
       .menu-intro-block p { font-size: 0.9rem; }
 
       /* TÍTULOS */
-      .msec-title { font-size: clamp(2.2rem, 9vw, 3.5rem); }
-      .msec-note { font-size: 0.92rem; margin-bottom: 2rem; }
-      .sec-div-label { font-size: 0.82rem; }
+      .msec-title { font-size: clamp(2.4rem, 10vw, 3.8rem); }
+      .msec-note { font-size: 1rem; margin-bottom: 2rem; }
+      .sec-div-label { font-size: 0.9rem; }
 
       /* ITENS DO CARDÁPIO */
-      .mitem-name { font-size: 1.25rem; }
-      .mitem-desc { font-size: 0.9rem; }
-      .mitem-price { font-size: 1.2rem; }
-      .mitem-tag { font-size: 0.78rem; }
+      .mitem { padding: 1rem 0; }
+      .mitem-name { font-size: 1.35rem; font-weight: 600; }
+      .mitem-desc { font-size: 0.95rem; font-weight: 400; }
+      .mitem-price { font-size: 1.3rem; font-weight: 700; }
+      .mitem-tag { font-size: 0.82rem; font-weight: 600; }
 
       /* BOLINHOS — 1 coluna */
       .mgrid { grid-template-columns: 1fr; }
-      .bolinho-quote { font-size: 1rem; padding: 1.25rem 1.25rem; }
+      .bolinho-quote { font-size: 1.05rem; padding: 1.25rem 1.25rem; }
       .bolinho-photos { gap: 0.75rem; margin-top: 2rem; }
 
       /* PETISCO BLOCKS — 1 coluna */
@@ -1181,31 +1184,31 @@
         padding: 1.25rem;
       }
       .rabada-hero-opt:last-child { border-bottom: none; }
-      .rabada-hero-opt-name { font-size: 1.4rem; }
-      .rabada-hero-opt-desc { font-size: 0.85rem; }
-      .rabada-hero-opt-price { font-size: 2rem; }
-      .rabada-hero-opt-sub { font-size: 0.8rem; }
+      .rabada-hero-opt-name { font-size: 1.5rem; }
+      .rabada-hero-opt-desc { font-size: 0.95rem; }
+      .rabada-hero-opt-price { font-size: 2.2rem; }
+      .rabada-hero-opt-sub { font-size: 0.88rem; }
 
       /* PRATOS */
       .pcat { margin-bottom: 2.5rem; }
-      .pcat-title { font-size: 0.85rem; }
-      .pcat-note { font-size: 0.9rem; }
-      .ropt-name { font-size: 1.4rem; }
-      .ropt-desc { font-size: 0.9rem; }
-      .ropt-price { font-size: 1.8rem; }
+      .pcat-title { font-size: 0.9rem; }
+      .pcat-note { font-size: 0.95rem; }
+      .ropt-name { font-size: 1.5rem; }
+      .ropt-desc { font-size: 0.95rem; }
+      .ropt-price { font-size: 2rem; }
 
       /* ADICIONAIS — 2 colunas */
       .add-grid { grid-template-columns: 1fr 1fr; }
       .add-item { padding: 0.9rem 1rem; }
-      .add-name { font-size: 1.05rem; }
-      .add-price { font-size: 1rem; }
+      .add-name { font-size: 1.1rem; }
+      .add-price { font-size: 1.05rem; font-weight: 700; }
 
       /* LOCALIZAÇÃO — 1 coluna */
       .loc-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .loc-title { font-size: 2.2rem; margin-bottom: 1.5rem; }
+      .loc-title { font-size: 2.4rem; margin-bottom: 1.5rem; }
       .loc-map { aspect-ratio: 16/9; min-height: 240px; }
-      .loc-label { font-size: 0.78rem; }
-      .loc-val { font-size: 1rem; }
+      .loc-label { font-size: 0.85rem; }
+      .loc-val { font-size: 1.05rem; }
 
       /* INSTAGRAM */
       .insta-inner {
