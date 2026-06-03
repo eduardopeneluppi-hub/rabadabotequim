@@ -369,7 +369,7 @@
 
     /* ===== HOURS ===== */
     .hours {
-      background: var(--surface);
+      background: var(--ink);
       padding: 6rem 0;
     }
     .hours-heading {
@@ -378,47 +378,68 @@
       font-weight: 400;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      text-align: center;
+      text-align: left;
       margin-bottom: 3rem;
-      color: var(--ink);
+      color: #fff;
     }
-    .hours-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      border: 1px solid var(--sep);
-      background: var(--bg);
+    .hours .sec-div-label { color: var(--bordeaux-light); }
+    .hours .sec-div::before,
+    .hours .sec-div::after { background: rgba(255,255,255,0.12); }
+    .hours-schedule { display: flex; flex-direction: column; }
+    .hours-row {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      transition: background 200ms;
     }
-    .hours-cell {
-      padding: 1.5rem 1rem;
-      border-right: 1px solid var(--sep);
-      text-align: center;
-    }
-    .hours-cell:last-child { border-right: none; }
-    .hours-day {
+    .hours-row:first-child { border-top: 1px solid rgba(255,255,255,0.08); }
+    .hours-row-day {
       font-family: var(--font-title);
-      font-size: 0.95rem;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-      font-weight: 400;
-      text-transform: uppercase;
-      margin-bottom: 0.5rem;
-    }
-    .hours-time {
-      font-family: var(--font-title);
-      font-size: 1.5rem;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
       font-weight: 400;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: var(--ink);
-      line-height: 1.2;
+      color: #fff;
+      min-width: 200px;
+      flex-shrink: 0;
     }
-    .hours-time.closed {
+    .hours-row-line {
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.15);
+    }
+    .hours-row-time {
       font-family: var(--font-title);
-      font-size: 1.1rem;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
       font-weight: 400;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: var(--bordeaux);
+      color: var(--bordeaux-light);
+      flex-shrink: 0;
+    }
+    .hours-closed {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 0;
+      margin-top: 0.5rem;
+    }
+    .hours-closed-days {
+      font-family: var(--font-b);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+    .hours-closed-label {
+      font-family: var(--font-title);
+      font-size: 1.2rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
     }
 
     /* ===== MENU INTRO ===== */
@@ -1163,15 +1184,14 @@
       .nav-backdrop { display: none; }
       .nav-burger { display: flex; z-index: 52; position: relative; }
 
-      /* HORÁRIOS — 2 colunas compactas no mobile */
-      .hours { padding: 2.5rem 0; }
-      .hours-heading { font-size: 1.7rem; margin-bottom: 1.25rem; }
-      .hours-grid { grid-template-columns: repeat(2, 1fr); }
-      .hours-cell { padding: 0.75rem 0.6rem; border-right: 1px solid var(--sep); }
-      .hours-cell:nth-child(2n) { border-right: none; }
-      .hours-day { font-size: 0.75rem; margin-bottom: 0.3rem; }
-      .hours-time { font-size: 0.95rem; }
-      .hours-time.closed { font-size: 0.85rem; }
+      /* HORÁRIOS mobile */
+      .hours { padding: 3rem 0; }
+      .hours-heading { font-size: 1.7rem; margin-bottom: 1.5rem; }
+      .hours-row-day { font-size: 1.4rem; min-width: 120px; }
+      .hours-row-time { font-size: 1.4rem; }
+      .hours-row { padding: 0.9rem 0; gap: 1rem; }
+      .hours-closed-days { font-size: 0.72rem; }
+      .hours-closed-label { font-size: 1rem; }
       .hours-day { font-size: 0.82rem; }
       .hours-time { font-size: 1.15rem; }
       .hours-time.closed { font-size: 0.95rem; }
@@ -1286,8 +1306,8 @@
     }
 
     @media (max-width: 400px) {
-      .hours-grid { grid-template-columns: 1fr; }
-      .hours-cell { border-right: none; }
+      .hours-row-day { font-size: 1.2rem; min-width: 100px; }
+      .hours-row-time { font-size: 1.2rem; }
       .add-grid { grid-template-columns: 1fr; }
       .add-item { border-right: none; }
     }
@@ -1383,34 +1403,30 @@
   <div class="wrap">
     <div class="sec-div rv"><span class="sec-div-label">Funcionamento</span></div>
     <h2 class="hours-heading rv">Quando estamos abertos</h2>
-    <div class="hours-grid rv">
-      <div class="hours-cell">
-        <div class="hours-day">Segunda</div>
-        <div class="hours-time closed">Fechado</div>
+    <div class="hours-schedule rv">
+      <div class="hours-row">
+        <span class="hours-row-day">Quinta</span>
+        <span class="hours-row-line"></span>
+        <span class="hours-row-time">12h às 22h</span>
       </div>
-      <div class="hours-cell">
-        <div class="hours-day">Terça</div>
-        <div class="hours-time closed">Fechado</div>
+      <div class="hours-row">
+        <span class="hours-row-day">Sexta</span>
+        <span class="hours-row-line"></span>
+        <span class="hours-row-time">12h às 22h</span>
       </div>
-      <div class="hours-cell">
-        <div class="hours-day">Quarta</div>
-        <div class="hours-time closed">Fechado</div>
+      <div class="hours-row">
+        <span class="hours-row-day">Sábado</span>
+        <span class="hours-row-line"></span>
+        <span class="hours-row-time">12h às 22h</span>
       </div>
-      <div class="hours-cell">
-        <div class="hours-day">Quinta</div>
-        <div class="hours-time">12h<br>às 22h</div>
+      <div class="hours-row">
+        <span class="hours-row-day">Domingo</span>
+        <span class="hours-row-line"></span>
+        <span class="hours-row-time">11h às 18h</span>
       </div>
-      <div class="hours-cell">
-        <div class="hours-day">Sexta</div>
-        <div class="hours-time">12h<br>às 22h</div>
-      </div>
-      <div class="hours-cell">
-        <div class="hours-day">Sábado</div>
-        <div class="hours-time">12h<br>às 22h</div>
-      </div>
-      <div class="hours-cell">
-        <div class="hours-day">Domingo</div>
-        <div class="hours-time">11h<br>às 18h</div>
+      <div class="hours-closed">
+        <span class="hours-closed-days">Segunda &nbsp;·&nbsp; Terça &nbsp;·&nbsp; Quarta</span>
+        <span class="hours-closed-label">Fechado</span>
       </div>
     </div>
   </div>
