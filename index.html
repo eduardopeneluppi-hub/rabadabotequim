@@ -233,6 +233,110 @@
     /* ===== LAYOUT ===== */
     .wrap { max-width: 960px; margin: 0 auto; padding: 0 2.5rem; }
 
+    /* ===== REVIEWS ===== */
+    .reviews-sec {
+      background: var(--bg);
+      padding: 6rem 0;
+      border-top: 1px solid var(--sep);
+      overflow: hidden;
+    }
+    .reviews-google-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 3rem;
+    }
+    .reviews-google-icon { width: 36px; height: 36px; flex-shrink: 0; }
+    .reviews-badge-info { display: flex; flex-direction: column; gap: 0.15rem; }
+    .reviews-badge-name {
+      font-family: var(--font-b);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: 0.04em;
+    }
+    .reviews-badge-stars { color: #FBBC05; font-size: 1rem; letter-spacing: 0.05em; }
+    .reviews-carousel-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .reviews-track {
+      flex: 1;
+      overflow: hidden;
+      min-height: 200px;
+      position: relative;
+    }
+    .review-card {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 450ms ease, transform 450ms ease;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .review-card.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: all;
+      position: relative;
+    }
+    .review-card.exit {
+      opacity: 0;
+      transform: translateX(-40px);
+    }
+    .review-stars { color: #FBBC05; font-size: 1.1rem; letter-spacing: 0.08em; }
+    .review-text {
+      font-family: var(--font-d);
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--ink-dim);
+      line-height: 1.7;
+      max-width: 72ch;
+    }
+    .review-text::before { content: '\201C'; color: var(--bordeaux); font-size: 2rem; line-height: 0; vertical-align: -0.4em; margin-right: 0.15em; }
+    .review-author {
+      font-family: var(--font-title);
+      font-size: 1.3rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .reviews-nav-btn {
+      background: none;
+      border: 1px solid var(--sep);
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--ink);
+      transition: background 180ms, border-color 180ms, color 180ms;
+    }
+    .reviews-nav-btn:hover { background: var(--bordeaux); border-color: var(--bordeaux); color: #fff; }
+    .reviews-nav-btn svg { width: 18px; height: 18px; }
+    .reviews-counter {
+      margin-top: 1.5rem;
+      font-family: var(--font-b);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    @media (max-width: 768px) {
+      .reviews-carousel-wrap { gap: 0.75rem; }
+      .reviews-nav-btn { width: 40px; height: 40px; }
+      .review-text { font-size: 1rem; }
+      .review-author { font-size: 1.1rem; }
+    }
+
     /* ===== INSTAGRAM ===== */
     .insta-sec {
       background: var(--bg);
@@ -1356,6 +1460,44 @@
   </div>
 </section>
 
+<!-- REVIEWS -->
+<section class="reviews-sec">
+  <div class="wrap">
+    <div class="sec-div rv"><span class="sec-div-label">Avaliações</span></div>
+
+    <div class="reviews-google-badge rv">
+      <svg class="reviews-google-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="Google">
+        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+      </svg>
+      <div class="reviews-badge-info">
+        <span class="reviews-badge-name">Google Reviews</span>
+        <span class="reviews-badge-stars">★★★★★</span>
+      </div>
+    </div>
+
+    <div class="reviews-carousel-wrap rv">
+      <button type="button" class="reviews-nav-btn" id="reviewsPrev" aria-label="Anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="reviews-track" id="reviewsTrack">
+        <div class="review-card active" id="reviewCard">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text" id="reviewText"></p>
+          <div class="review-author" id="reviewAuthor"></div>
+        </div>
+      </div>
+      <button type="button" class="reviews-nav-btn" id="reviewsNext" aria-label="Próximo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+
+    <div class="reviews-counter rv" id="reviewsCounter"></div>
+  </div>
+</section>
+
 <!-- INSTAGRAM -->
 <section class="insta-sec">
   <div class="insta-inner">
@@ -1912,6 +2054,97 @@
   });
   backdrop.addEventListener('click', closeMenu);
   links.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+  // Reviews carousel
+  (function () {
+    const reviews = [
+      { author: 'Anie', text: 'Pedimos pelo iFood e chegou antes do previsto. Comida bem apresentável. Os dois PFs muito bem preparados e caprichados. A parmegiana de berinjela estava muito saborosa, com molho fresquinho, sem ser gordurosa. A melhor de restaurante que já comi. Parabéns!' },
+      { author: 'Mauro Contilo', text: 'Comida espetacular, preço muito bom e entrega o que promete.' },
+      { author: 'Caroline Senna', text: 'Cerveja sempre trincando, comida maravilhosa, ambiente gostoso e familiar, banheiro sempre limpo, garçons muito atenciosos e solícitos. Pelo menos uma vez por semana estou lá aproveitando o sabor e o ótimo preço.' },
+      { author: 'Danilo Pereira', text: 'Local excelente, comida e porções incríveis, além da bebida extremamente gelada. Vale a pena visitar para experimentar as opções do cardápio.' },
+      { author: 'Paula Serpa', text: 'Muito bom o lugar, recomendo! Viemos por indicação e adoramos. A comida é saborosa, o preço é acessível, os garçons são simpáticos e atendem muito bem. Comemos vários bolinhos e todos são ótimos, mas o de carne seca foi o melhor.' },
+      { author: 'Henrique Tchordach', text: 'Excelente lugar para comer uma boa comida, mas principalmente pelo atendimento excepcional. Com certeza voltaremos mais vezes pela qualidade do serviço e pela experiência positiva.' },
+      { author: 'Prof. Jorge Luiz', text: 'Recomendo. Ótimo atendimento, comida boa e cerveja gelada.' },
+      { author: 'Vinicius Guilherme Pereira Silva', text: 'Comida excepcional! Melhor de São José dos Campos. Atendimento show de bola e cerveja gelada.' },
+      { author: 'Maria Raquel Rangel', text: 'Recomendo demais! Os bolinhos são sensacionais, cerveja gelada, chopp Brahma e atendimento excelente. O drink Jorge Amado é uma dica de ouro.' },
+      { author: 'Aline.lika05 Silva', text: 'Cerveja gelada e porções saborosas. A tilápia é, sem dúvida, uma das melhores.' },
+      { author: 'Eng Menoncin', text: 'Rabada excelente, com um temperinho de alho diferenciado. Recomendo muito!' },
+      { author: 'Kallie Hype', text: 'Lugar maravilhoso, sempre com cerveja gelada, atendimento excepcional, donos muito simpáticos e comida barata e gostosa.' },
+      { author: 'Guilherme Mathias', text: 'Lugar aconchegante e arejado, atendimento ótimo e comida muito saborosa, servida em ótima quantidade. Super indico!' },
+      { author: 'Micaela Fernandes', text: 'A caipirinha de saquê com frutas vermelhas é maravilhosa, a cerveja bem gelada e os bolinhos excelentes. Amei o atendimento da Ana e da Adriana.' },
+      { author: 'Caio Mussato Amorim', text: 'Lugar muito agradável. Fiquei impressionado com a qualidade dos bolinhos, do torresmo e principalmente do provolone à milanesa com geleia de pimenta. O melhor custo-benefício da cidade.' },
+      { author: 'Thiago Moraes', text: 'Os bolinhos são fantásticos. A rabada também é muito boa.' },
+      { author: 'Guilherme Costa', text: 'Ambiente agradável, comida boa e ótimo atendimento. Super recomendo!' },
+      { author: 'Rafaele Caroline', text: 'Ambiente agradável, e a comida então sem comentários. Que sabor! Atendimento excelente.' },
+      { author: 'Kelly Medeiros', text: 'A melhor Jorge Amado que já bebi. Delícia! Lugar tranquilo, ambiente agradável e muito bom para toda a família.' },
+      { author: 'Tarcyana Alves', text: 'Super recomendo! Atendentes muito atenciosas, ambiente tranquilo. Voltaremos mais vezes. Vale a pena conhecer.' },
+      { author: 'Glaucia Rangel', text: 'Ambiente agradável e ótimo atendimento. Já quero voltar!' },
+      { author: 'Maria Eduarda Nogueira', text: 'Amei o tempero do filé de frango à milanesa! Achei um diferencial muito interessante em relação aos demais botecos.' },
+      { author: 'Renata Rodrigues', text: 'Lugar super organizado, comida de excelente qualidade, ingredientes frescos e preparados com grande atenção aos detalhes, preservando sabor e aparência. Minha experiência foi excelente e superou as expectativas.' },
+      { author: 'Gabrielly Silva', text: 'Ótima experiência. Melhor feijoada da região! Amei.' },
+      { author: 'Leonardo Alves', text: 'O Rabada Botequim é perfeito para encontros descontraídos e momentos especiais. O cardápio é um show à parte. A rabada, carro-chefe da casa, é preparada com perfeição: carne macia, suculenta e muito bem temperada.' },
+      { author: 'Carla Vilas Bôas', text: 'Lugar incrível, com comida maravilhosa. Sou apaixonada pelos bolinhos de sabores exclusivos e pelo ceviche. Os pratos à la carte são muito bem servidos e extremamente saborosos.' },
+      { author: 'Fratelli Odontologia', text: 'Cerveja gelada e bolinhos maravilhosos. O arroz de costela é excelente, mas o ponto alto foi a rabada com angu. Uma experiência deliciosa.' },
+      { author: 'Daniella Martins Ribeiro', text: 'O melhor lugar e o melhor atendimento. Meu lugar favorito. Os donos acolhem as pessoas com muito carinho e respeito, tornando a experiência ainda mais especial.' },
+      { author: 'Karina Barcelos Brandao Bernardino', text: 'Amei o local. Vim para almoçar, o chopp estava gelado e o filé de tilápia excelente, com tempero na medida certa. Super recomendo.' },
+      { author: 'Rosana Demetrio Costa', text: 'Muito bom! Ótimos bolinhos e cerveja gelada.' },
+      { author: 'Paulo Rogerio Moraes', text: 'Comida excelente e atendimento excepcional. Equipe muito atenciosa e educada.' },
+      { author: 'Claudio Salaminho', text: 'Atendimento ótimo, local agradável para uma boa resenha, cerveja gelada e petiscos de qualidade.' },
+      { author: 'Mario Sarraf', text: 'Estou dando uma nota excelente. Embora não tenha conseguido frequentar o local por uma questão relacionada às regras da casa, fui bem atendido e reconheço a qualidade do estabelecimento.' },
+      { author: 'Julio Reginaldo', text: 'Excelente local para tomar um chopp e comer um torresmo.' },
+      { author: 'Jéfte Pavam', text: 'O prato Virado à Paulista é sensacional. Recomendo! Sem contar a cerveja gelada. Maravilhoso.' },
+      { author: 'Daniel Santarem', text: 'Bar fenomenal, cerveja extremamente gelada, comida excelente e atendimento fora de série. Os bolinhos são o carro-chefe da casa e a rabada também é fantástica.' },
+      { author: 'Danilo dos Santos Oliveira', text: 'Bar maravilhoso, comida boa e com preço justo. Ambiente familiar e atendimento impecável. Frequento com minha família desde a inauguração e sempre tivemos ótimas experiências. Recomendo sem hesitar.' },
+      { author: 'Fabi Soares', text: 'Muito bom, cerveja super gelada!' },
+      { author: 'Júnior Escobar', text: 'Os bolinhos são muito bons!' },
+      { author: 'Júlia Raissa', text: 'Comida excelente, principalmente os bolinhos, que têm qualidade surpreendente e muito sabor. Os pedidos são preparados rapidamente e o atendimento é ótimo, com destaque para a simpatia da equipe.' },
+      { author: 'Lawanda Avelino', text: 'Ambiente agradável, cardápio variado e, o mais importante, cerveja gelada.' },
+      { author: 'Silvio Junior', text: 'Simplesmente fantástico. O frango à milanesa e o bolinho de carne seca estavam impecáveis. Atendimento muito rápido, pratos servidos com agilidade mesmo para um grupo grande e preço justo. Gostei muito da organização do cardápio e da transparência nos preços. Ganharam um cliente fiel.' },
+    ];
+
+    let current = 0;
+    let autoTimer;
+    const card    = document.getElementById('reviewCard');
+    const textEl  = document.getElementById('reviewText');
+    const authEl  = document.getElementById('reviewAuthor');
+    const counter = document.getElementById('reviewsCounter');
+    const prev    = document.getElementById('reviewsPrev');
+    const next    = document.getElementById('reviewsNext');
+
+    function render(idx, dir) {
+      card.classList.remove('active', 'exit');
+      card.classList.add('exit');
+      setTimeout(() => {
+        textEl.textContent  = reviews[idx].text;
+        authEl.textContent  = reviews[idx].author;
+        counter.textContent = (idx + 1) + ' / ' + reviews.length;
+        card.classList.remove('exit');
+        card.style.transform = dir > 0 ? 'translateX(40px)' : 'translateX(-40px)';
+        card.offsetHeight;
+        card.classList.add('active');
+        card.style.transform = '';
+      }, 250);
+    }
+
+    function go(dir) {
+      current = (current + dir + reviews.length) % reviews.length;
+      render(current, dir);
+      resetAuto();
+    }
+
+    function resetAuto() {
+      clearInterval(autoTimer);
+      autoTimer = setInterval(() => go(1), 7000);
+    }
+
+    prev.addEventListener('click', () => go(-1));
+    next.addEventListener('click', () => go(1));
+    document.getElementById('reviewsTrack').addEventListener('mouseenter', () => clearInterval(autoTimer));
+    document.getElementById('reviewsTrack').addEventListener('mouseleave', resetAuto);
+
+    render(0, 1);
+    resetAuto();
+  })();
 
   // Steam effect — canvas particle system
   (function () {
